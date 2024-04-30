@@ -1,0 +1,7 @@
+"0","ggplot(spotifydata, aes(x = bpm, y = danceability_.))+"
+"0","  geom_point(color = colorpal[12], size = 1)+"
+"0","  ggtitle(""Are a Song's BPM and Danceability Correlated?"")+"
+"0","  xlab('Beats per Minute (BPM)')+"
+"0","  ylab(""Danceability Percentage"")+"
+"0","  theme_minimal()+"
+"0","  geom_smooth(method = ""loess"", color = 'violetred')"

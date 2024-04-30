@@ -1,0 +1,97 @@
+---
+title: "Past Course Visualizations"
+description: |
+  Visualizations I Have Created during Math 230
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Generative Art**
+
+```{r, echo = FALSE}
+library(aRtsy)
+```
+
+![Artwork 1](C:\Users\paige\OneDrive\Math230FinalProject\SandyP_website\Art1.png)
+
+![Artwork 2](C:\Users\paige\OneDrive\Math230FinalProject\SandyP_website\Art2.png)
+
+![Artwork 3 - Bucknell Themed](C:\Users\paige\OneDrive\Math230FinalProject\SandyP_website\Art3.png)
+
+
+
+**Shiny App**
+
+<iframe src="https://abby-flynt.shinyapps.io/Paige-Vy-SP24/" class="l-screen-inset shaded" height="1000px"></iframe>
+
+Here is my Confidence Level Project within a Shiny App, which I collaborated on with Vy Tran, explaining repeated sampling,and the effect of confidence level on confidence level width and accuracy. 
+
+
+**GGPlot Extension - ggside**
+```{r,echo = FALSE}
+library(ggplot2)
+library(ggside)
+```
+
+```{r,echo = FALSE}
+data('diamonds')
+diamonds = diamonds[complete.cases(diamonds), ]
+diamonds_Subset = diamonds[1:1000, ]
+```
+
+```{r,echo = FALSE}
+colorpal = c('lightpink',"deeppink4",'violet','mediumvioletred', 'plum','violetred2','hotpink',"maroon", '#a7de71',"chartreuse4",'darkgreen', 'mediumseagreen', 'darkseagreen3', 'limegreen')
+```
+
+```{r,echo = FALSE}
+base_size = 1
+
+ggplot(diamonds_Subset, aes(carat, price, colour = cut)) + 
+  geom_point(size = 0.25) +
+  geom_xsideboxplot(aes(y =cut), orientation = "y", size= 0.05 ) +
+  scale_xsidey_discrete() + 
+  geom_ysidehistogram(bins=10000, position = 'stack', alpha = 0.2 ) +
+  scale_ysidex_continuous(guide = guide_axis(angle = 90), minor_breaks = NULL) +
+  theme(ggside.panel.background = element_rect(fill = 'lightgrey', colour = 'lightgrey'))+
+  theme(text=element_text(size=10)) +
+  theme_minimal()+
+  scale_colour_manual(values = colorpal)+
+  ggtitle("Diamond Carat Value versus Price")
+```
+*GGside - Diamond Data*
+
+Using a subset of the 'diamonds' data set, this visualization displays the comparison between diamonds' price and their carat size in a scatter plot. As for the side panels, boxplots of the diamonds' cut compared to the carat size are on the top (x panel), and diamonds' cut and price are compared on the right (y panel). 
+
+**Student's Heights Compared with their Class Year**
+```{r, echo = FALSE}
+library(Lock5Data)
+data(StudentSurvey)
+StudentSurvey = StudentSurvey[complete.cases(StudentSurvey), ]
+StudentSurvey$Year = factor(StudentSurvey$Year, 
+                          levels = c("FirstYear", "Sophomore", "Junior", "Senior"),
+                          ordered = TRUE)
+```
+
+```{r, echo = FALSE}
+ggplot(StudentSurvey, aes(x = Height, y = after_stat(density), color = Year, fill = Year)) +
+  geom_density(alpha = .2) + 
+  scale_color_brewer(palette = "Dark2") + 
+  scale_fill_brewer(palette = "Dark2")
+```
+Using the StudentSurvey data set from the Lock5Data package, this visualization compares students' heights based on their grade level with layered density plots. The variables 'Height' and 'Year' are used. 
+
+
+
+**GGCorrplot**
+
+```{r, echo = FALSE}
+library(ggcorrplot)
+diamonds1 = subset(diamonds, select = -c(cut,color,clarity) )
+corr= cor(diamonds1)
+p.mat = cor_pmat(diamonds1)
+ggcorrplot(corr,method = 'circle', hc.order = TRUE,type = 'upper', color = c('darkgreen','white','pink'), 
+           ggtheme = theme_classic(), lab = TRUE, sig.level = 0.01, insig = 'blank')
+```
+
+Using the ggcorrplot package, this visualization creates a correlation matrix into a visualization comparing a few variables (carat, price, table,lengths(x,y,z), and depth) of the 'diamonds' data set. The visualization shows positive and negative correlations between these variables. 

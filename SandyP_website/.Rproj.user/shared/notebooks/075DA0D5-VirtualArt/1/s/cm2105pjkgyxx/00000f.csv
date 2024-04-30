@@ -1,0 +1,5 @@
+"0","library(lemon)"
+"0","qplot(key, instrumentalness_., data = spotifydata, colour = key) +"
+"0","  scale_color_manual(values = colorpal)+"
+"0","  theme_minimal()+"
+"0","  ggtitle(""Keys vs Instrumentalness"")"

@@ -1,0 +1,5 @@
+"0","ggplot(spotifydata)+"
+"0","  geom_point(aes(x= artist_count, y = streams), fill = colorpal[13], color = colorpal[12], size = 1)+"
+"0","  ggtitle(""Can more Artists Plummet a Song's Stream Count?"")+"
+"0","  xlab('# of Artists on a Song')+"
+"0","  theme_minimal()"

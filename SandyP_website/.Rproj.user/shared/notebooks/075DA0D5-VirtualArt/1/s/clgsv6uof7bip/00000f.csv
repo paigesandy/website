@@ -1,0 +1,7 @@
+"0","ggplot(data = spotifydata)+"
+"0","  geom_histogram(aes(x = in_apple_charts),binwidth = 10, fill = colorpal[2],color = colorpal[2], alpha = 0.25) +"
+"0","  geom_histogram(aes(x = in_spotify_charts),binwidth = 10, fill = colorpal[13],color = colorpal[13], alpha = 0.5) +"
+"0","  ggtitle(""Top Songs in Apple vs Spotify Charts"")+"
+"0","  scale_fill_manual(labels = c(""apple"", 'spotify'))+"
+"0","  theme_classic()+"
+"0","  xlab('Spotify (green) and Apple (pink) Charts')"

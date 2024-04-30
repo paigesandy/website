@@ -1,0 +1,6 @@
+"0","data(""msleep"")"
+"0","data('diamonds')"
+"0",""
+"0","diamonds = diamonds[complete.cases(diamonds), ]"
+"0","diamonds_Subset = diamonds[1:1000, ]"
+"0","msleep = msleep[complete.cases(msleep), ]"

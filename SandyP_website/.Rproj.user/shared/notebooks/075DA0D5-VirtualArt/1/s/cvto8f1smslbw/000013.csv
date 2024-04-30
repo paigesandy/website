@@ -1,0 +1,7 @@
+"0","ggplot(spotifydata, aes(x=energy_., y= acousticness_., color = mode, shape = mode)) +"
+"0","  geom_point(size = 0.8)+"
+"0","  theme_classic() +"
+"0","  labs(x = 'Energy %', y = 'Acousticness %') +"
+"0","  ggtitle(""Songs' Energy versus Acousticness"")+"
+"0","  scale_color_manual(values =colorpal, aes('color')) +"
+"0","  labs(shape = 'shape')"

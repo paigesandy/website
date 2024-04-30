@@ -1,0 +1,8 @@
+"0","ggplot(taylorweeknd, aes(x = energy_., y = valence_., color = artist.s._name))+"
+"0","    scale_color_manual(values = c(colorpal[6], colorpal[14]))+"
+"0","  geom_point(show.legend = FALSE) +"
+"0","  facet_wrap(~artist.s._name)+"
+"0","  theme_minimal()+"
+"0","  ggtitle(""What Makes A Top Song?"", subtitle = ""Comparing Taylor Swift and the Weeknds' Top Songs"") +"
+"0","  xlab(""Energy Percentage"")+"
+"0","  ylab(""Valence Percentage"")"

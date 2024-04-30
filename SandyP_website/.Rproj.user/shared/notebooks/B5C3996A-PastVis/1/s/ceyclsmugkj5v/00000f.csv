@@ -1,0 +1,8 @@
+"0","library(ggcorrplot)"
+"2","Loading required package: ggplot2
+"
+"0","diamonds1 = subset(diamonds, select = -c(cut,color,clarity) )"
+"0","corr= cor(diamonds1)"
+"0","p.mat = cor_pmat(diamonds1)"
+"0","ggcorrplot(corr,method = 'circle', hc.order = TRUE,type = 'upper', color = c('darkgreen','white','pink'), "
+"0","           ggtheme = theme_classic(), lab = TRUE, sig.level = 0.01, insig = 'blank')"

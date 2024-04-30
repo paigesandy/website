@@ -1,0 +1,6 @@
+"0","ggplot(spotifydata)+"
+"0","  geom_point(aes(x = in_spotify_playlists, y = in_apple_playlists), color = colorpal[10], size = 0.5)+"
+"0","  theme_minimal()+"
+"0","  ggtitle(""Do Top Songs in Spotify and Apple Playlists Differ?"")+"
+"0","  xlab(""# of Spotify Playlists"")+"
+"0","  ylab(""# of Apple Playlists"")"

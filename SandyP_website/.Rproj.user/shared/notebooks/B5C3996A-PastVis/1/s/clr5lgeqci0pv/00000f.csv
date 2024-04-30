@@ -1,0 +1,7 @@
+"0","data(""msleep"")"
+"2","Warning: data set ‘msleep’ not found"
+"0","data('diamonds')"
+"2","Warning: data set ‘diamonds’ not found"
+"0","diamonds = diamonds[complete.cases(diamonds), ]"
+"2","Error: object 'diamonds' not found
+"

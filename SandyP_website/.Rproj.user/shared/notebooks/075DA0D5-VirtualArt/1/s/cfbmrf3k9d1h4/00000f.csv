@@ -1,0 +1,2 @@
+"0","plot_ly(x = artname10 ,y = arttop10, type = 'bar', color = I('black'), text = arttop10, textposition = 'auto',marker = list(color = c('lightpink',""limegreen"",'violet','mediumvioletred', 'plum','mediumseagreen','hotpink',""maroon"", '#a7de71','darkgreen')))%>%"
+"0","  layout(title = 'Top Ten Artists with the Most Appearances on Spotify Charts',yaxis = list(title ='Number of Appearances')) "

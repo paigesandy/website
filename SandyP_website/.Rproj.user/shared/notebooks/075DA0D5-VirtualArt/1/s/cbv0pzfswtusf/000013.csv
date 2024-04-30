@@ -1,0 +1,13 @@
+"0","ggplot(spotifydata, aes(x = released_month, color = key)) + "
+"0","  geom_density(linewidth = 1)+"
+"0","  scale_color_manual(values = colorpal)+"
+"0","  ggtitle(""Song Keys vs Release Time of Year"", )+ "
+"0","  theme_minimal()+"
+"0","  xlab(""Month of Year"")+"
+"0","  theme(axis.line = element_line(colour = ""black"", "
+"0","                      linewidth = 1, linetype = ""solid""))+"
+"0","  scale_x_discrete('Months of Year', breaks = c(1,2,3,4,5,6,7,8,9,10,11,12),labels = c('Jan', 'Feb', 'Mar',""Apr"", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'), limits = c(1,2,3,4,5,6,7,8,9,10,11,12)) +"
+"0","  theme(axis.text.x = element_text(   size=8, angle=45))"
+"2","Warning: [38;5;232mContinuous limits supplied to discrete scale.
+[36mℹ[38;5;232m Did you mean `limits = factor(...)` or
+  `scale_*_continuous()`?[39m"

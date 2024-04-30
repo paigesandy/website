@@ -1,0 +1,33 @@
+"0","spotifydata = read.csv(""spotify-2023.csv"", header = TRUE)"
+"0",""
+"0","spotifydata = spotifydata[complete.cases(spotifydata), ]"
+"0","attach(spotifydata)"
+"2","The following object is masked _by_ .GlobalEnv:
+
+    streams
+
+"
+"2","The following objects are masked from spotifydata (pos = 3):
+
+    acousticness_., artist.s._name, artist_count, bpm,
+    danceability_., energy_., in_apple_charts,
+    in_apple_playlists, in_deezer_charts,
+    in_deezer_playlists, in_shazam_charts,
+    in_spotify_charts, in_spotify_playlists,
+    instrumentalness_., key, liveness_., mode,
+    released_day, released_month, released_year,
+    speechiness_., streams, track_name, valence_.
+
+"
+"2","The following objects are masked from spotifydata (pos = 7):
+
+    acousticness_., artist.s._name, artist_count, bpm,
+    danceability_., energy_., in_apple_charts,
+    in_apple_playlists, in_deezer_charts,
+    in_deezer_playlists, in_shazam_charts,
+    in_spotify_charts, in_spotify_playlists,
+    instrumentalness_., key, liveness_., mode,
+    released_day, released_month, released_year,
+    speechiness_., streams, track_name, valence_.
+
+"
