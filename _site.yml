@@ -1,0 +1,18 @@
+name: "SandyP_website"
+title: "Distill Website"
+description: |
+  Distill Website
+output_dir: "docs"
+theme: theme.css
+navbar:
+  right:
+    - text: "Home"
+      href: home.html
+    - text: "Infographic"
+      href: infographic.html
+    - text: "Virtual Art Exhibit"
+      href: VirtualArt.html
+    - text: "Past Visualizations"
+      href: PastVis.html
+output: distill::distill_article
+

@@ -1,0 +1,23 @@
+---
+title: "Paige Sandy"
+image: "SeniorPic.jpg"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/"
+  - label: GitHub
+    url: "https://github.com/"
+  - label: Email
+    url: "mailto:ps050@bucknell.edu"
+output:
+  postcards::jolla
+site: distill::distill_website
+---
+ 
+ 
+ 
+I am a student at Bucknell University in Lewisburg, PA, majoring in statistics.
+This website is my comprehensive final project for Math 230 - Data Visualization.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

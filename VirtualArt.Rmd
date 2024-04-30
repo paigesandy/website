@@ -1,0 +1,188 @@
+---
+title: "Virtual Art Exhibit - Spotify Data"
+description: "For this exhibit, I used the \"Most Streamed Spotify Songs 2023\" dataset
+  on Kaggle. This dataset includes the most famous songs on spotify as of 2023. It
+  provides each songs' track name, artists, release date (in day, month, and year),
+  where the song is in Spotify, Apple, Deezer, and Shazam charts, the bpm, key, and
+  mode of the song, and percentages based on the song's danceability, valence, energy,
+  acousticness, instrumentalness, liveness, and speechiness. \n"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r,echo = FALSE}
+colorpal = c('lightpink',"deeppink4",'violet','mediumvioletred', 'plum','violetred2','hotpink',"maroon", '#a7de71',"chartreuse4",'darkgreen', 'mediumseagreen', 'darkseagreen3', 'limegreen')
+```
+
+```{r,warning=FALSE}
+spotifydata = read.csv("spotify-2023.csv", header = TRUE)
+
+spotifydata = spotifydata[complete.cases(spotifydata), ]
+attach(spotifydata)
+```
+```{r}
+
+spotifydata$streams = as.numeric(streams)
+spotifydata$mode = factor(mode, levels = c('Major','Minor'))
+spotifydata$key = factor(key, levels= c("C",'C#',"D","D#","E","E#","F","F#","G","G#","A","A#","B","B#"), ordered = TRUE)
+spotifydata$in_deezer_playlists = as.numeric(in_deezer_playlists)
+
+spotifydata$in_shazam_charts = as.numeric(in_shazam_charts)
+
+spotifydata$artist.s._name = factor(artist.s._name)
+
+#spotifydata$released_month = factor(released_month,levels = c(1,2,3,4,5,6,7,8,9,10,11,12), labels =   c('Jan', 'Feb', 'Mar',"Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'), ordered = TRUE)
+```
+
+```{r}
+ggplot(data = spotifydata)+
+  geom_histogram(aes(x = in_apple_charts),binwidth = 10, fill = colorpal[2],color = colorpal[2], alpha = 0.25) +
+  geom_histogram(aes(x = in_spotify_charts),binwidth = 10, fill = colorpal[13],color = colorpal[13], alpha = 0.5) +
+  ggtitle("Top Songs in Apple vs Spotify Charts")+
+  scale_fill_manual(labels = c("apple", 'spotify'))+
+  theme_classic()+
+  xlab('Spotify (green) and Apple (pink) Charts')
+```
+*Spotify versus Apple Charts*    
+In this visualization, using stacked histograms, the 'in_apple_charts' and 'in_spotify_charts' variables are compared. It is observed that songs in the top of Spotify's charts aren't necessarily also in the top of Apple's charts.
+
+
+```{r}
+ggplot(spotifydata)+
+  geom_point(aes(x = in_spotify_playlists, y = in_apple_playlists), color = colorpal[10], size = 0.5)+
+  theme_minimal()+
+  ggtitle("Do Top Songs in Spotify and Apple Playlists Differ?")+
+  xlab("# of Spotify Playlists")+
+  ylab("# of Apple Playlists")
+```
+*Spotify versus Apple Playlists*     
+This scatter plot provides a comparison between the number of Spotify and number of Apple playlists a song is in. While the number of playlists the song is included is relatively equal when on the lower end, some bigger hits in Spotify playlists aren't in nearly as many Apple playlists.  
+
+
+```{r, warning=FALSE}
+library(plotly)
+numTS = sum(artist.s._name == "Taylor Swift")
+numWk = sum(artist.s._name == 'The Weeknd')
+numBB = sum(artist.s._name == 'Bad Bunny')
+numSZA = sum(artist.s._name == 'SZA')
+numHS = sum(artist.s._name == 'Harry Styles')
+numKL = sum(artist.s._name == 'Kendrick Lamar')
+numMW = sum(artist.s._name == 'Morgan Wallen')
+numES = sum(artist.s._name == 'Ed Sheeran')
+numBTS = sum(artist.s._name == 'BTS')
+numD21S = sum(artist.s._name == 'Drake, 21 Savage')
+arttop10 = c(numTS, numWk, numBB, numSZA, numHS, numKL, numMW, numES, numBTS, numD21S)
+artname10 = c('Taylor Swift', 'The Weeknd','Bad Bunny','SZA', 'Harry Styles', "Kendrick Lamar", 'Morgan Wallen', 'Ed Sheeran', 'BTS', 'Drake, 21 Savage')
+```
+
+```{r}
+plot_ly(x = artname10 ,y = arttop10, type = 'bar', color = I('black'), text = arttop10, textposition = 'auto',marker = list(color = c('lightpink',"limegreen",'violet','mediumvioletred', 'plum','mediumseagreen','hotpink',"maroon", '#a7de71','darkgreen')))%>%
+  layout(title = 'Top Ten Artists with the Most Appearances on Spotify Charts',yaxis = list(title ='Number of Appearances')) 
+  
+```
+*Artists with Most Chart Appearances*     
+This interactive plotly displays the number of appearances the top ten artists have had in the Spotify charts of 2023. This visualization required a cut version of the "artist.s._name" variable, and a created variable of the number of appearances each of those artists had. It is observed that Taylor Swift had the most appearances on the chart with 34 appearances, The Weeknd in second place with 22, and SZA and Bad Bunny tied for the third most appearances at 19. 
+
+
+```{r, warning =FALSE}
+ggplot(spotifydata)+
+  geom_point(aes(x= artist_count, y = streams), fill = colorpal[13], color = colorpal[12], size = 1)+
+  ggtitle("Can more Artists Plummet a Song's Stream Count?")+
+  xlab('# of Artists on a Song')+
+  theme_minimal()
+```
+*Artist Count and Streams*     
+Here, a discrete scatter plot compares the number of artists on a song with how many streams a song receives, using the 'artist_count' and 'streams' variables. The plot shows that more artists on a song may correlate to the song getting less streams. However, there are significantly less observations with more than two artists, so a definitive conclusion cannot be made. 
+
+
+```{r}
+ggplot(spotifydata)+ 
+  geom_point(aes(x = released_month, y = instrumentalness_.), color = colorpal[7], size = 2) +
+  theme_minimal()+
+  xlab('Day of Month Released')+
+  ylab('Energy Percentage Rating')+
+  scale_x_discrete('Months of Year', breaks = c(1,2,3,4,5,6,7,8,9,10,11,12),labels = c('Jan', 'Feb', 'Mar',"Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'), limits = c(1,2,3,4,5,6,7,8,9,10,11,12))+
+  ggtitle("Does the Release Month Have an Influence on a Top Songs' Energy?")
+
+```
+*Songs' Energy Rating and Release Month*      
+Using the released_month and energy_. variables, this discrete scatter plot shows the relationship between songs' energy ratings and the month of the year they were released. Songs released in the summer months tend to have higher energy ratings than those in late winter months. 
+
+
+```{r}
+ggplot(spotifydata, aes(x=energy_., y= acousticness_., color = mode, shape = mode)) +
+  geom_point(size = 0.8)+
+  theme_classic() +
+  labs(x = 'Energy %', y = 'Acousticness %') +
+  ggtitle("Songs' Energy versus Acousticness")+
+  scale_color_manual(values =colorpal, aes('color')) +
+  labs(shape = 'shape')
+#cor(energy_.,acousticness_.)
+```
+*Songs' Energy versus Acousticness*     
+Using the 'energy_'. and 'acousticness_.' variables, I created a scatter plot displaying a moderate negative correlation between songs' energy and acousticness percentages. There appears to be no statistically significant difference between songs that are written in mode major versus minor. 
+
+```{r}
+library(lemon)
+qplot(key, instrumentalness_., data = spotifydata, colour = key) +
+  scale_color_manual(values = colorpal)+
+  theme_minimal()+
+  ggtitle("Keys vs Instrumentalness")
+```
+*Songs' Keys versus their Instrumentalness*      
+Using the 'key' and 'instrumentalness_.' variables, I compared each song's key to its instrumentalness percentage using the lemon package. Here we can observe that the D#, F, and G keys have songs with the highest instrumentalness percentages, yet most observations are below 25% intstrumentalness. 
+
+
+
+
+```{r}
+ggplot(spotifydata, aes(x = released_month, color = key)) + 
+  geom_density(linewidth = 1)+
+  scale_color_manual(values = colorpal)+
+  ggtitle("Song Keys vs Release Time of Year", )+ 
+  theme_minimal()+
+  xlab("Month of Year")+
+  theme(axis.line = element_line(colour = "black", 
+                      linewidth = 1, linetype = "solid"))+
+  scale_x_discrete('Months of Year', breaks = c(1,2,3,4,5,6,7,8,9,10,11,12),labels = c('Jan', 'Feb', 'Mar',"Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'), limits = c(1,2,3,4,5,6,7,8,9,10,11,12)) +
+  theme(axis.text.x = element_text(   size=8, angle=45))
+```
+*Songs' Keys versus Release Month*      
+This density graph visualization compares release month to different keys of songs using the 'key' and 'release_month' variables. It is observed that each key is released more frequently at different times of year. For example, songs in the key of D are released less during the months from May-July, however songs in the key of D# and B are released most during this time period. 
+
+```{r}
+ggplot(spotifydata, aes(x = bpm, y = danceability_.))+
+  geom_point(color = colorpal[12], size = 1)+
+  ggtitle("Are a Song's BPM and Danceability Correlated?")+
+  xlab('Beats per Minute (BPM)')+
+  ylab("Danceability Percentage")+
+  theme_minimal()+
+  geom_smooth(method = "loess", color = 'violetred')
+```
+*Songs' BPM and Danceability*     
+Using the 'bpm' and 'danceability_.' variables, this scatter plot displays the moderate relationship between a song's bpm and danceability rating, which gives a parabola shape. As bpm increases, the danceability of the song will tend to increase up to a certain point, then at higher bpms, the danceability decreases. 
+
+
+```{r}
+taylorweeknd = spotifydata[artist.s._name == 'Taylor Swift'|artist.s._name == 'The Weeknd',]
+```
+
+```{r}
+ggplot(taylorweeknd, aes(x = energy_., y = valence_., color = artist.s._name))+
+    scale_color_manual(values = c(colorpal[6], colorpal[14]))+
+  geom_point(show.legend = FALSE) +
+  facet_wrap(~artist.s._name)+
+  theme_minimal()+
+  ggtitle("What Makes A Top Song?", subtitle = "Comparing Taylor Swift and the Weeknds' Top Songs") +
+  xlab("Energy Percentage")+
+  ylab("Valence Percentage")
+```
+*What makes a Top Song?*      
+Here, the two most popular artists, Taylor Swift and The Weeknd's songs are compared based on their energy and valence percentage ratings. This comparison shows that a top song is not determined soley on its energy, since Swift's energy ratings are broad, but it does not depend on valence either for the same reason. Overall, many factors go into what makes a top song in the charts. 
+
